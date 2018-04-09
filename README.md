@@ -57,6 +57,7 @@ pre-requisites :
     • A code editor of your choice, we recommend VSCode.	
 
 COMMANDS :
+
 curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
 chmod u+x prereqs-ubuntu.sh
 ./prereqs-ubuntu.sh
@@ -88,10 +89,13 @@ connect to runtime using peerAdminCard, start and stop runtime anytime
     ./stopFabric.sh
 
 run web application
-in terminal : composer-playground
+
+terminal cmd : composer-playground
+
 http://localhost:8080/login
 
 destroy a previous setup
+
    docker kill $(docker ps -q)
    docker rm $(docker ps -aq)
    docker rmi $(docker images dev-* -q)
