@@ -1,17 +1,14 @@
-# hyperledger-composer-starter-guide
+# Hyperledger Composer Starter
+![enter image description here](https://blogselman.files.wordpress.com/2017/04/congablocks.png)
 
-Basic guide for getting started in hyperleger composer
+Model your **business network** and integrate existing systems and data with your blockchain applications. Supports **Hyperledger Fabric** blockchain infrastructure and runtime & pluggable blockchain consensus protocols to validate.
 
-Model your business network and integrate existing systems and data with your blockchain applications.
+# Description Composer
+Create Business Network Definition comprised of Model, Script, ACL, Query files => package this network to a .bna business network
+archive (ready to deploy) => then use ID Cards (connection information) to deploy to a distributed ledger. A modeling language, and a set of APIs to quickly define and deploy business networks and applications that allow participants to send transactions that exchange assets.
 
-Supports Hyperledger Fabric blockchain infrastructure and runtime & pluggable blockchain consensus protocols to validate.
+## Key Concepts in Hyperledger Composer
 
-Composer - create Business Network Definition comprised of Model, Script, ACL, Query files - package this network to a .bna business network 
-archive (ready to deploy) -> then use ID Cards (connection information) to deploy to a distributed ledger.
-
-A modeling language, and a set of APIs to quickly define and deploy business networks and applications that allow participants to send transactions that exchange assets.
-
-Key Concepts in Hyperledger Composer
 - Blockchain State Storage
 - Connection Profiles (business network cards)
 - Assets (unique identifier)
@@ -24,80 +21,137 @@ Key Concepts in Hyperledger Composer
 - Access Control (who has access to what)
 - Historian registry (records successful transactions as HistorianRecord)
 
+## Architecture
+Create "full-stack" blockchain solutions i.e. business logic that runs on the blockchain, REST APIs that expose the blockchain logic to web or mobile applications, as well as integrating the blockchain with existing enterprise systems of record.
 
-Architecture 
+Hyperledger Composer is composed of the following **high-level components:**
 
-Create "full-stack" blockchain solutions. I.e. business logic that runs on the blockchain, REST APIs that expose the blockchain logic to web or mobile applications, as well as integrating the blockchain with existing enterprise systems of record.
+**Execution Runtimes** => Hyperledger Fabric v1.1. State is stored on the distributed ledger (browser-localstorage, web-playground)
 
-Hyperledger Composer is composed of the following high-level components:
+**Connection Profiles** => For Hyperledger Fabric v1.1 runtime it will contain TCP/IP addresses and ports for the Fabric peers, as well as cryptographic certificates etc.
 
-Execution Runtimes - Hyperledger Fabric v1.1. State is stored on the distributed ledger (browser-localstorage,web-playground)
+**JavaScript SDK** => is a set of Node.js APIs the enables developers to create applications to manage and interact with deployed business networks. - two npm modules – composer-client crud composer-admin – manage business networks.
 
-Connection Profiles - For Hyperledger Fabric v1.1 runtime it will contain TCP/IP addresses and ports for the Fabric peers, as well as cryptographic certificates etc.
+**Command Line Interface** => deploy and managed business network definitions
 
-JavaScript SDK - is a set of Node.js APIs the enables developers to create applications to manage and interact with deployed business networks. - two npm modules – composer-client crud composer-admin – manage business networks.
+**REST Server** => Open API (Swagger) REST API based on LoopBack technology and **LoopBack Connector**
 
-Command Line Interface - deploy and managed business network definitions
-REST Server - Open API (Swagger) REST API based on LoopBack technology
-LoopBack Connector - 
-Playground Web User Interface
-Yeoman code generator - Angular web application Node.js application Skeleton 								business network
-VSCode and Atom editor plugins
+**Playground Web User Interface**
 
-Installing the development environment
+**Yeoman** code generator => 
 
-pre-requisites :
+ - Angular web application
+ - Node.js application
+ - Skeleton business network
+ - 
+**VSCode and Atom editor plugins**
 
-    • Docker Engine: Version 17.03 or higher
-    • Docker-Compose: Version 1.8 or higher
-    • Node: 8.9 or higher (note version 9 is not supported)
-    • npm: v5.x
-    • git: 2.9.x or higher
-    • Python: 2.7.x
-    • A code editor of your choice, we recommend VSCode.	
+## Installing the development environment
+**PRE-REQUISITES**
+-   Docker Engine: Version 17.03 or higher
+-   Docker-Compose: Version 1.8 or higher
+-   Node: 8.9 or higher (note version 9 is not supported)
+-   npm: v5.x
+-   git: 2.9.x or higher
+-   Python: 2.7.x
+-   VSCode with Hyperledger Extension
 
-COMMANDS :
+**COMMANDS**
 
-curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
-chmod u+x prereqs-ubuntu.sh
-./prereqs-ubuntu.sh
+    curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
+    chmod u+x prereqs-ubuntu.sh
 
-then 
-npm install -g composer-cli
-npm install -g composer-rest-server
-npm install -g generator-hyperledger-composer
-npm install -g yo
 
-npm install -g composer-playground
+**NPM modules**
 
-then vscode extension hyperledger composer
+    npm install -g composer-cli
+    npm install -g composer-rest-server
+    npm install -g generator-hyperledger-composer
+    npm install -g yo
+    npm install -g composer-playground
 
-Install Hyperledger Fabric
+**Install Hyperledger Fabric**
 
-mkdir ~/fabric-tools && cd ~/fabric-tools
+    mkdir ~/fabric-tools && cd ~/fabric-tools
+    curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz 
+    tar -xvf fabric-dev-servers.tar.gz
+    cd ~/fabric-tools
+    ./downloadFabric.sh
+  
+  **connect to runtime using peerAdminCard, start and stop runtime anytime**
+  
 
-curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
-tar -xvf fabric-dev-servers.tar.gz
-
-cd ~/fabric-tools
-./downloadFabric.sh
-
-connect to runtime using peerAdminCard, start and stop runtime anytime
     cd ~/fabric-tools
     ./startFabric.sh
     ./createPeerAdminCard.sh
     ./stopFabric.sh
 
-run web application
+**run web app : composer-playground**
 
-terminal cmd : composer-playground
+    http://localhost:8080/login
 
-http://localhost:8080/login
+**destroy a previous setup**
 
-destroy a previous setup
+    docker kill $(docker ps -q)
+    docker rm $(docker ps -aq)
+    docker rmi $(docker images dev-* -q)
 
-   docker kill $(docker ps -q)
-   docker rm $(docker ps -aq)
-   docker rmi $(docker images dev-* -q)
+## Development
 
+***1. Business network structure***
+the data model, transaction logic and access control rules for your blockchain solution. Yeoman generator to create a skeleton business network.
 
+    yo hyperledger-composer:businessnetwork
+
+  
+
+>enter network name, author name and author email
+
+> `Apache-2.0`  as the license
+
+> namespace as org.acme.mynetwork
+
+***2. Define business network***
+Model file (models/.cto)
+Javascript transaction logic (lib/logic.js)
+Add access control (.acl)
+
+***3. Generate a business network archive (deployable.bna)***
+
+cd tutorial-network **(project directory)**
+ 
+
+    composer archive create -t dir -n .
+
+>generates tutorial-network@0.0.1.bna
+
+***4. Deploy the business network***
+
+> Required : instance of fabric, peeradmin identity, chaincode privileges
+
+    composer network install --card PeerAdmin@hlfv1 --archiveFile tutorial-network@0.0.1.bna
+    composer network start --networkName tutorial-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+    composer card import --file networkadmin.card
+    composer network ping --card admin@tutorial-network
+    
+***5. Generating a REST server***
+
+    composer-rest-server
+    
+***5. Generate an Application***
+
+    yo hyperledger-composer:angular
+
+>connect to running business network
+
+> Enter business network card
+
+>> Connect to an existing REST API
+
+> Enter REST server address
+
+> Enter server port
+
+>Select **Namespaces are not used**
+
+    npm start
