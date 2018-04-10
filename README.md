@@ -43,7 +43,7 @@ Hyperledger Composer is composed of the following **high-level components:**
  - Angular web application
  - Node.js application
  - Skeleton business network
- - 
+
 **VSCode and Atom editor plugins**
 
 ## Installing the development environment
